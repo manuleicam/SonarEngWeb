@@ -16,31 +16,41 @@ if(!$connection->conn){
 
 $nome = $_GET["nome"];
 $password = $_GET["password"];
-
 mysqli_set_charset($connection->conn, "utf8");
 
 
-$query = sprintf("SELECT count(*) as id FROM sensores WHERE nome = '$nome' AND password = '$password' ;");
+$query = sprintf("SELECT count(*) as t, id, nome, password FROM sensores WHERE nome = '$nome';");
 
 //execute query
 
 $result = $connection->conn->query($query);
 
-//loop through the returned data
+//loop through the returned database
 $data = array();
-
 
 foreach ($result as $row) {
 	$data[] = $row;
 }
 
-
+if($row['t'] == 1){
+	if($password == $row['password']) {
+	print json_encode($row['id']);
+	$connection->conn->close();
+	}
+	else{
+		echo(-1);
+		$connection->conn->close();
+	}
+}
+else {
+	echo(0);
+	$connection->conn->close();
+}
 
 //close connection
-$connection->conn->close();
+
 
 //now print the data
 //echo($data);
-print json_encode($row["id"],JSON_UNESCAPED_UNICODE);
 ?>
 
