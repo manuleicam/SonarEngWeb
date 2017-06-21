@@ -25,7 +25,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a class="site_title"><span>Dashboard</span></a>
+              <a class="site_title"><span><b>SONAR</b></span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -35,13 +35,13 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Geral</h3>
+  
                 <ul class="nav side-menu">
-                      <li><a href="acessosConcedidos.html">Acessos Concedidos</a></li>
-                      <li><a href="acessosNegados.html">Acessos Negados</a></li>
-                      <li><a href="acessosUtilizador.html">Acessos Por Utilizador</a></li>
-                      <li><a href="acessosPilarete.html">Acessos Por Pilarete</a></li>
-                      <li><a href="eventos.html">Eventos</a></li>
+                      <li><a href="acessosConcedidos.html">Configurar Sistema</a></li>
+                      <li><a href="acessosNegados.html">Consultar Valores</a></li>
+                      <li><a href="acessosUtilizador.html">Alertas</a></li>
+                      <li><a href="acessosPilarete.html">Localização de Sensores</a></li>
+                      <li><a href="acessosPilarete.html"><b>Sair do Sistema</b></a></li>
                     </ul>
                   </li>
                 </ul>
@@ -81,9 +81,9 @@
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                    <input id="Tel" type="text" class="form-control" placeholder="Matricula">
+                    <input id="Tel" type="text" class="form-control" placeholder="Pesquisa">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" onClick="init_destroyer(document.getElementById('numTel').textContent); init_utilizador(document.getElementById('Tel').value); init_utilizdorComp_anos(document.getElementById('Tel').value , $('#selecaoanoUtilizador option:selected').val())">Go!</button>
+                      <button class="btn btn-default" type="button" onClick="init_destroyer(document.getElementById('numTel').textContent); init_utilizador(document.getElementById('Tel').value); init_utilizdorComp_anos(document.getElementById('Tel').value , $('#selecaoanoUtilizador option:selected').val())">OK</button>
                     </span>
                   </div>
                 </div>
@@ -133,7 +133,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Câmara Municipal de Braga
+            Engenharia Web
           </div>
           <div class="clearfix"></div>
         </footer>
