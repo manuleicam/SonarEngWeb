@@ -4,14 +4,15 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Signup / Registration form using Material Design - Demo by W3lessons</title>
-  <!-- CORE CSS-->
   
-  -<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
 
 <style type="text/css">
 html,
 body {
+    background-image: url("c.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
     height: 100%;
 }
 html {
@@ -29,7 +30,7 @@ body {
   
 </head>
 
-<body class="green">
+<body class="blue">
 
 
   <div id="login-page" class="row">
@@ -44,26 +45,24 @@ body {
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" class="validate" placeholder="Username" >
+            <input id="username" type="text" class="validate" placeholder="Username" required>
           </div>
         </div>
         
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" class="validate" placeholder="Password">
+            <input id="password" type="password" class="validate" placeholder="Password" required>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password-again" type="password" placeholder="Password novamente" >
+            <input id="password-again" type="password" placeholder="Password novamente" required>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12">
-            <a href="./teste.html" class="btn waves-effect waves-light col s12">Seguinte</a>
-          </div>
+          <button type="submit" class="btn waves-effect waves-light col s12">Registar</button>
           <div class="input-field col s12">
             <p class="margin center medium-small sign-up">Ir para página login <a href="https://www.facebook.com/Leicam19">Login</a></p>
           </div>
