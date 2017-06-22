@@ -4279,6 +4279,24 @@ ul.notifications {
     border: 1px solid #e5e5e5
 }
 
+#ste_box {
+    height:50px;
+    font-size:40pt
+}
+
+#ste_button{
+    width: 300px;
+    height: 40px;
+    bottom: 10px;
+    top: 50px;
+    position: relative;
+    float: left;
+    margin-left:5px;
+    font-size: 20px
+    
+}
+
+
 /*
 .x_content {
     direction: rtl;
