@@ -638,8 +638,9 @@ if (typeof NProgress != 'undefined') {
 
 
 			  function init_valoresLidos(){
+			  	id =1;
 			  	if($('#tabela').length){
-			  		id = 1;
+			  		
 			  		$.ajax({
 			  			url : url + "tabelaValores.php",
 			  			type : 'GET',
@@ -651,14 +652,12 @@ if (typeof NProgress != 'undefined') {
 			  				},
 			  				error : function() {
 			  					console.log('error');
-			  					console.log(id);
 			  				}
 			  			});
 			  	}
 
 			  	if($('#valoresLinhas').length){
 			  		$.ajax({
-
 	                    type: 'GET',
 	            		url: url + "valoresLinha.php",
 	                    data: {id : id}, 
@@ -675,7 +674,7 @@ if (typeof NProgress != 'undefined') {
 	            				labels:  labels,
 	            				datasets : [
 	            					{
-	            						label: "Total de Entradas",
+	            						label: "Valor leitura",
 	            						backgroundColor: "rgba(38, 185, 154, 0.31)",
 	            						borderColor: "rgba(38, 185, 154, 0.7)",
 	            						pointBorderColor: "rgba(38, 185, 154, 0.7)",
@@ -720,6 +719,97 @@ if (typeof NProgress != 'undefined') {
 				});	
 			  	
 			  }
+
+			  if ($('#valoresLimite').length ){
+					
+					$.ajax({
+							url: url + "tipoLeituras.php",
+							method: "GET",
+							data: {id : id},
+							success: function(data){
+								var valores = [];
+								var label = [];
+								var sup = 0;
+								var inf = 0;
+								var normal = 0;
+
+								label.push("Valores superiores");
+								label.push("Valores inferiores");
+								label.push("Valores normais");
+
+								for(var i in data){
+									if (parseInt(data[i].li) <= parseInt(data[i].valor) && parseInt(data[i].ls) >= parseInt(data[i].valor) ){
+										normal++;
+									}
+									else if(parseInt(data[i].li) > parseInt(data[i].valor))
+										inf++;
+									else sup++;
+								}
+
+								valores.push(sup);
+								valores.push(inf);
+								valores.push(normal);
+
+
+
+								var colors = [
+												"#336600", "#990000", "#003366"
+											];
+								
+								var chartdata = {
+									labels:  label,
+									datasets : [
+										{
+											label: "Total de Acessos Negados",
+											backgroundColor: colors,
+											data: valores,
+										}
+									]
+								};
+
+								var ctx = $('#valoresLimite');
+
+								pieChart = new Chart(ctx, {
+									data: chartdata,
+									type: 'pie'
+									
+								});
+								document.getElementById('js-legend1').innerHTML = pieChart.generateLegend();
+
+							},
+							error: function(data) {
+								console.log(data);
+							}
+						});
+					  
+				  }
+
+				  if ($('#nome').length ){
+				  	
+				  	 $.ajax({
+
+						url: url + "caractUser.php",
+						method: "GET",
+						data: {id : id},
+						success: function(data) {
+							var nome = "";
+							var li = 0;
+							var ls = 0;
+								
+							for(var i in data) {
+								nome = data[i].nome;
+								li =data[i].li;
+								ls = data[i].ls;
+							}
+
+			  				document.getElementById('nome').innerHTML ="Nome: " + nome;
+			  				document.getElementById('ls').innerHTML ="Limite Superior: " + li;
+			  				document.getElementById('li').innerHTML ="Limite Inferior: "+ ls;
+			  				
+				  		}
+				  	})
+
+				   }
 			}
 
 

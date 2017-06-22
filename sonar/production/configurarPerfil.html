@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Consultar Valores</title>
+    <title>Configurações</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a class="site_title"><span>Perfil</span></a>
+              <a class="site_title"><span>Configurações</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -40,7 +40,6 @@
                   <li><a href="perfil.html">Perfil</a></li>
                   <li><a href="configurarPerfil.html">Configurações</a></li>
                     </ul>
-                </ul>
               </div>
             </div>
           </div>
@@ -82,7 +81,7 @@
                   <span class="count" ></span>
                    <b><font size="6" id = "nome">Nome</font></b>
                 </div>
-            </div>
+            </div>  
             <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
                 <div class="x_content">
                   <span class="count" ></span>
@@ -94,63 +93,12 @@
                   <span class="count" ></span>
                    <b><font size="6" id = "ls">Limite Superior</font></b>
                 </div>
-            </div>
-            
-            <div class = "row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Leituras irregulares</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">                   
-                    <canvas id="valoresLimite"></canvas>
-                    <div id="js-legend1" class="chart-legend" ></div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-md-6 col-sm-6 col-xs-6">
-
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Leituras até ao momento</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">                 
-                    <canvas id="valoresLinhas"></canvas>
-                    <div id="js-legend3" class="chart-legend"></div>
-                  </div>
-                </div>
-              </div>
-              </div>
-
-
-              <div class="clearfix"></div>
-			<div class="panel panel-primary ">
-           
-            <table id = "tabela" class="table">
-                <thead>
-                        <th>Valor da leitura</th>
-                        <th>Data da leitura</th>
-                        <th>Hora da leitura</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-                    
+            </div>    
 
             <div class="clearfix"></div>
+
+            
+
             
             </div>
           </div>
