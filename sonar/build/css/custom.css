@@ -265,7 +265,7 @@ html , body{
     padding: 0 0 4px 0
 }
 .left_col {
-    background: #2A3F54
+    background: #206040 /*cor d lado**/
 }
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
@@ -362,7 +362,7 @@ html , body{
 }
 .menu_section h3 {
     padding-left: 15px;
-    color: #fff;
+    color: #fff; /*mudar cor do texto de lado**/
     text-transform: uppercase;
     letter-spacing: .5px;
     font-weight: bold;
@@ -444,8 +444,8 @@ html , body{
 }
 .nav_menu {
     float: left;
-    background: #EDEDED;
-    border-bottom: 1px solid #D9DEE4;
+    background: #EDEDED;/*Cor aba de cima*/
+    border-bottom: 1px solid #004d00; /*bordinha de cima */
     margin-bottom: 10px;
     width: 100%;
     position: relative
@@ -469,7 +469,7 @@ html , body{
     position: fixed
 }
 body .container.body .right_col {
-    background: #F7F7F7
+    background: #F7F7F7/*Cor pág principal*/
 }
 .nav-md .container.body .right_col {
     padding: 10px 20px 0;
@@ -478,7 +478,7 @@ body .container.body .right_col {
 .nav_title {
     width: 230px;
     float: left;
-    background: #2A3F54;
+    background: #206040; /*cor das configurações*/
     border-radius: 0;
     height: 57px
 }
@@ -610,7 +610,7 @@ body .container.body .right_col {
 }
 body {
     color: #73879C;
-    background: #2A3F54;
+    background: #206040;
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
     font-weight: 400;
