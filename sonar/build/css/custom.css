@@ -4278,6 +4278,10 @@ ul.notifications {
     min-height: 300px;
     border: 1px solid #e5e5e5
 }
+#row_2{
+    top: 10px;
+    position: relative
+}
 
 #ste_box {
     height:50px;
@@ -4295,7 +4299,6 @@ ul.notifications {
     font-size: 20px
     
 }
-
 
 /*
 .x_content {
