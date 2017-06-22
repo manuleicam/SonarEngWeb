@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>RegistarSensor</title>
+    <title>Sensores do sistema</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a class="site_title"><span>Registar</span></a>
+              <a class="site_title"><span>Sensores do Sistema</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -56,14 +56,12 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
               <ul class="nav navbar-nav navbar-right">
-
-                <li role="presentation" class="dropdown">
-                    <a href="pag_inicial.html"><i class="fa fa-bell-o"></i>
-                  </a>
-                </li>
-              </ul>
+              <div id = "logOut">
+                    <a href="pag_inicial.html">LogOut</a>
+                    </div>
+              </ul> 
           </div>
-        </div>
+        </div> 
         <!-- top navigation -->
 
         <!-- page content -->
@@ -72,43 +70,64 @@
 
             <div class="page-title">
               <div class="title_left">
-                <h3>Registar Sensor</h3>
+                <h3>Sensores do Sistema</h3>
               </div>
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="3" id = "posX">Insira posição X</font></b>
-                   <div><input type="text" name="posicaoX"> </div>
-                   
-                </div>
-            </div>  
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="3" id = "posY">Insira Posição Y</font></b>
-                    <div><input type="text" name="posicaoX"> </div>
-                </div>
-            </div>
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="3" id = "detalhes">Descrição do Local</font> </b>
-                   <div id="ste_box">
-                        <input type="textarea" name="desc_Local" >
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Mapa da localização dos sensores</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                   <div class="x_content">
+                  <div id="map" style="height:500px;width:1000px"></div>
                    </div>
                 </div>
-            </div>    
-            <div id="ste_button">
-                <button type="button" id="button">Registar</button>
-            </div>
+
+                <div class="clearfix"></div>
+
+                <div class = "row">
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Valores Médios</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">                 
+                    <canvas id="avgLinhas"></canvas>
+                    <div id="js-legend3" class="chart-legend"></div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Máximo e Mínimo</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">                   
+                    <canvas id='maxEmin'></canvas>
+                    <div id="js-legend2" class="chart-legend"></div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
 
             <div class="clearfix"></div>
 
-            
+
 
             
             </div>
@@ -131,6 +150,11 @@
     <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.js"></script>
+    <!-- MAPA -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCARcnBkNq6NPYZVCu3hMLEEDNdoybTP20">
+    </script>
+    
     
   
   </body>

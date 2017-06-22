@@ -44,6 +44,7 @@ $FOOTER = $('footer');
 
 var url = "http://localhost:8888/sonar/scripts/";	
 var barGraph=null, barGraph1;
+var lineGraph;
 var id;
 
 
@@ -688,7 +689,7 @@ if (typeof NProgress != 'undefined') {
 	            			 }
 	            	var ctx = $("#valoresLinhas");
 
-	            			barGraph = new Chart(ctx, {
+	            			lineGraph = new Chart(ctx, {
 	            				type: 'line',
 	            				data: chartdata,
 	                            options: {
@@ -713,7 +714,7 @@ if (typeof NProgress != 'undefined') {
 	                            }
 
 	            			});
-	            		document.getElementById('js-legend3').innerHTML = barGraph.generateLegend();
+	            		document.getElementById('js-legend3').innerHTML = lineGraph.generateLegend();
 
 	            	}
 				});	
@@ -812,9 +813,223 @@ if (typeof NProgress != 'undefined') {
 				   }
 			}
 
+			function init_mapGraphs(){
+				if ($('#maxEmin').length ){
+				  	
+				  	 $.ajax({
+
+						url: url + "maxMin.php",
+						method: "GET",
+						data: {},
+						success: function(data) {
+							var valoresMaximos = [];
+							var valoresMinimos = [];
+							var labels = [];
+
+							for(var i in data) {
+								valoresMaximos.push(parseInt(data[i].maxs))
+								valoresMinimos.push(parseInt(data[i].mins))
+								labels.push((data[i].id))
+							}
+
+							var chartdata = {
+								labels:  labels,
+								datasets : [
+									{
+										label: "Máximo lido",
+										backgroundColor: "rgba(300, 00, 0, 0.7)",
+										data: valoresMaximos},
+										{
+										label: "Mínimo lido",
+										backgroundColor: "rgba(0, 0, 300, 0.7)",
+										data: valoresMinimos
+										}
+										
+								]
+							};
+
+							var ctx = $('#maxEmin');
+
+							barGraph = new Chart(ctx, {
+								type: 'bar',
+								data: chartdata,
+								options: {
+										  scales: {
+											yAxes: [{
+												scaleLabel: {
+									        display: true,
+									        labelString: 'Valor lido'
+									    },
+											  ticks: {
+												beginAtZero: true
+											  }
+											}],
+											xAxes: [{
+										     	scaleLabel: {
+									        display: true,
+									        labelString: 'Id do Sensor'
+									    }
+                                    }]
+										  }
+										}
+									
+							});
+							document.getElementById('js-legend2').innerHTML = barGraph.generateLegend();
+						},
+				  	})
+
+				   }
+
+				   if ($('#avgLinhas').length ){
+				   	$.ajax({
+	                    type: 'GET',
+	            		url: url + "avgSensores.php",
+	                    data: {id : id}, 
+	            		success: function(data) {
+	            			var valores = [];
+   							var labels = [];
+
+   							for(var i in data){
+   								valores.push(parseInt(data[i].avgs));
+   								labels.push(data[i].id);
+   							}
+
+	            			var chartdata = {
+	            				labels:  labels,
+	            				datasets : [
+	            					{
+	            						label: "Valor Médio dos sensores",
+	            						backgroundColor: "rgba(38, 185, 154, 0.31)",
+	            						borderColor: "rgba(38, 185, 154, 0.7)",
+	            						pointBorderColor: "rgba(38, 185, 154, 0.7)",
+	            						pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+	            						pointHoverBackgroundColor: "#fff",
+	            						pointHoverBorderColor: "rgba(220,220,220,1)",
+	            						pointBorderWidth: 1,
+	            						data: valores
+	            					}
+	            				]
+	            			 }
+	            	var ctx = $("#avgLinhas");
+
+	            			lineGraph = new Chart(ctx, {
+	            				type: 'line',
+	            				data: chartdata,
+	                            options: {
+	                                scales: {
+	                                    yAxes: [{
+	                                    	scaleLabel: {
+										        display: true,
+										        labelString: 'Valore Médio'
+										    },
+	                                        ticks: {
+	                                            beginAtZero: true,
+
+	                                        }
+	                                    }],
+	                                    xAxes: [{
+	                                    	scaleLabel: {
+										        display: true,
+										        labelString: "Id do Sensor"
+										    }
+	                                    }]
+	                                }
+	                            }
+
+	            			});
+	            		document.getElementById('js-legend3').innerHTML = lineGraph.generateLegend();
+
+	            	}
+				});	
+				   }
+
+			}
+
+			window.onload = function() {
+				var myLatLng = {lat: 41.56131, lng:  -8.393804};
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 15,
+					center: myLatLng
+				});
+
+				$.ajax({
+
+					url: url +"localSensores.php",
+					method: "GET",
+					success: function(data) {
+
+						for(var i in data){
+							var pointLocal = {lat: parseFloat(data[i].gpsX), lng: parseFloat(data[i].gpsY)};
+							var marker = new google.maps.Marker({
+							position: pointLocal,
+							map: map,
+							title: data[i].detalhes
+							});
+
+							if(parseInt(data[i].de) == 1)
+							marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+
+						}
+
+						
+					}
+				})
+
+
+				
+
+
+				//marker.addListener('click', function() {
+				//	document.getElementById('sss').innerHTML = "DAMN"
+				//});
+			}
+
+			function registarUser(nome, password){
+				var flagRegistar = 0;
+				$.ajax({
+
+					url: url +"verSeNomeExiste.php",
+					method: "POST",
+					data: {nome : nome, password :password},
+					success: function(data) {
+						flagRegistar = data;
+						if (flagRegistar == "1"){
+						window.alert("O user escolhido já existe");
+						}
+						else {window.alert("User inserido com sucesso");
+							location.href = 'pag_inicial.html';
+						}
+					}
+				})
+			}
+
+			function logIN(nome, password){
+				var flaglogin = 0;
+				$.ajax({
+
+					url: url +"logar.php",
+					method: "GET",
+					data: {nome : nome, password :password},
+					success: function(data) {
+						flaglogin = data;
+						console.log(flaglogin);
+						if (flaglogin == "1"){
+						window.alert("LogIn com sucesso");
+						location.href = 'paginaMapa.html';
+						}
+						if (flagLogin == "0"){
+							window.alert("Password Errada");	
+						}
+						if (flagLogin == "-1"){
+							window.alert("UserName não existe");
+						}
+					}
+				})
+			}
 
 
 			  $(document).ready(function() {
+			  	init_mapGraphs();
 			  	init_valoresLidos();
 			  	init_sidebar();
 			  	init_InputMask();
