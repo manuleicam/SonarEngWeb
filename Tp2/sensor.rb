@@ -31,9 +31,9 @@ class Cliente
   	end
 
   	def lerSensor
+  		@t2 = Thread.new {
   		while @flag do
   			readAco
-  			puts "ola2222"
 	  		valor = {
 	  			"valor" => @acoustico,
 	  			"id" => @idCliente
@@ -41,11 +41,13 @@ class Cliente
 	  		respJ = @cliente.post 'http://localhost:8888/sonar/scriptsSensores/postValues.php', valor
 	  		sleep(5);
 	  	end
-	  	puts "sensor desligado"
+	  }
   	end
 
   	def disconnect
   		@flag = false
+  		puts "Sensor desligado"
+  		Thread.exit
   	end
 
 	def iniciar
@@ -63,13 +65,12 @@ class Cliente
 		}
 		respJ = @cliente.get 'http://localhost:8888/sonar/scriptsSensores/verificarLogin.php', verificarLogIn
 		res = JSON.parse(respJ.body)
-		puts res
 		if res.to_i != 0 && res.to_i != -1 then
 			puts "Log in com sucesso"
 			@idCliente = res.to_i
-			puts @idCliente
+			puts "O seu id é #{@idCliente}"
 			enviarValores
-		elsif res == "-1" then
+		elsif res.to_s == "-1" then
 			puts "Password errada"
 			puts "Insira uma password nova"
 			@password = gets.chomp
