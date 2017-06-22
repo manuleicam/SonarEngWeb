@@ -1,4 +1,4 @@
-
+﻿
 html , body{
 	
  height:100%;
@@ -4361,3 +4361,46 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
 }
+
+<style>
+#button1{ 
+width: 200px;
+height: 40px;
+}
+
+#button2{
+width: 200px;
+height: 40px;
+}
+
+div.relative {
+    top:100px;
+    position: relative;
+    align-items: center;
+} 
+
+div.relative1 {
+    top:30px;
+    position: relative;
+    align-items: center;
+} 
+
+body {
+    background-image: url("../../Img/c.jpg");
+    background-color: #cccccc;
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#container {
+  text-align: center;
+  align-items: center;
+}
+
+button {
+  display: inline-block;
+  align-items: center;
+  font-size: 20px;
+}
+</style>
