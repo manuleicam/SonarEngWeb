@@ -963,11 +963,12 @@ if (typeof NProgress != 'undefined') {
 					success: function(data) {
 
 						for(var i in data){
+							var titlo = "id: " + data[i].id + " detalhes: " + data[i].detalhes
 							var pointLocal = {lat: parseFloat(data[i].gpsX), lng: parseFloat(data[i].gpsY)};
 							var marker = new google.maps.Marker({
 							position: pointLocal,
 							map: map,
-							title: data[i].detalhes
+							title: titlo
 							});
 
 							if(parseInt(data[i].de) == 1)
@@ -1001,7 +1002,7 @@ if (typeof NProgress != 'undefined') {
 						window.alert("O user escolhido já existe");
 						}
 						else {window.alert("User inserido com sucesso");
-							location.href = 'pag_inicial.html';
+							location.href = 'pag_inicial2.html';
 						}
 					}
 				})
@@ -1016,7 +1017,6 @@ if (typeof NProgress != 'undefined') {
 					data: {nome : nome, password :password},
 					success: function(data) {
 						flaglogin = parseInt(data);
-						console.log(flaglogin);
 						if (flaglogin != "-1" && flaglogin != "0"){
 						window.alert("LogIn com sucesso");
 						localStorage.setItem("idCliente", flaglogin);
@@ -1109,8 +1109,6 @@ if (typeof NProgress != 'undefined') {
 							}
 							reg++;
 						}
-						console.log(jaLidos);
-						console.log(reg);
 						auxReg = reg - jaLidos;
 						reg =  auxReg + jaLidos;
 						localStorage.setItem("lidos", reg);
@@ -1148,6 +1146,79 @@ if (typeof NProgress != 'undefined') {
 					}
 				})
 			}
+
+			function valoresSensores(){
+			if ($('#valoresAtuais').length ){
+				   	$.ajax({
+	                    type: 'GET',
+	            		url: url + "valoresAtuais.php",
+	                    data: {}, 
+	            		success: function(data) {
+	            			var valores = [];
+   							var labels = [];
+
+   							for(var i in data){
+   								valores.push(parseInt(data[i].valor));
+   								labels.push(data[i].id);
+   							}
+
+	            			var chartdata = {
+	            				labels:  labels,
+	            				datasets : [
+	            					{
+	            						label: "Valor Médio dos sensores",
+	            						backgroundColor: "rgba(38, 185, 154, 0.31)",
+	            						borderColor: "rgba(38, 185, 154, 0.7)",
+	            						pointBorderColor: "rgba(38, 185, 154, 0.7)",
+	            						pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+	            						pointHoverBackgroundColor: "#fff",
+	            						pointHoverBorderColor: "rgba(220,220,220,1)",
+	            						pointBorderWidth: 1,
+	            						data: valores
+	            					}
+	            				]
+	            			 }
+	            	var ctx = $("#avgLinhas");
+
+	            			lineGraph = new Chart(ctx, {
+	            				type: 'line',
+	            				data: chartdata,
+	                            options: {
+	                                scales: {
+	                                    yAxes: [{
+	                                    	scaleLabel: {
+										        display: true,
+										        labelString: 'Valore Médio'
+										    },
+	                                        ticks: {
+	                                            beginAtZero: true,
+
+	                                        }
+	                                    }],
+	                                    xAxes: [{
+	                                    	scaleLabel: {
+										        display: true,
+										        labelString: "Id do Sensor"
+										    }
+	                                    }]
+	                                }
+	                            }
+
+	            			});
+	            		document.getElementById('js-legend1').innerHTML = lineGraph.generateLegend();
+
+	            	}
+				});	
+				   }
+				}
+
+
+
+
+
+
+
+
 
 			  $(document).ready(function() {
 			  	setInterval(function() {
