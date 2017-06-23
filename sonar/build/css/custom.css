@@ -4289,8 +4289,7 @@ ul.notifications {
 }
 
 #ste_box {
-    height:50px;
-    font-size:40pt
+    width: 100px; height: 20px
 }
 
 #ste_button{

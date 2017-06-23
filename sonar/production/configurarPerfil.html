@@ -42,6 +42,7 @@
                   <li><a href="configurarPerfil.html">Configurações</a></li>
                   <li><a href="paginaMapa.html">Sensores do Sistema</a></li>
                   <li><a href="RegistarSensor.html"> Registar Sensor</a></li>
+                  <li><a href="alarmes.html"> Alarmes</a></li>
               </ul>
             </div>
           </div>
@@ -58,7 +59,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
               <div id = "logOut">
-                    <a href="pag_inicial.html">LogOut</a>
+                    <a href="pag_inicial2.html">LogOut</a>
                     </div>
               </ul>
           </div>
@@ -71,7 +72,7 @@
 
             <div class="page-title">
               <div class="title_left">
-                <h3><b>Configurações</b></h3>
+                <h3>Configurações</h3>
               </div>
             </div>
 
@@ -98,22 +99,19 @@
 
             <div class="page-title">
               <div class="title_left">
-                <h3><b>Alterar Valores</b></h3>
+                <h3><b>Alterar Limites</b></h3>
               </div>
               <div class="clearfix"></div>
               <div class ="x_content">
-                <b><font size="3" id = "ls">Limite Inferior</font></b> <input type="text" name="LimiteInferior"><br> 
-                <div id="row_2">
-                  <button type="button" id="button">Atualizar</button>
-                  
-              </div>
+                <b><font size="3" >Limite Inferior</font></b> <input type="text" name="LimiteInferior" id = "li2"><br> 
+
             </div>
             <div class="clearfix"></div>
             <div id = "row_2"> 
               <div class = "x_content">
-                <b><font size="3" id = "ls">Limite Superior</font></b> <input type="text" name="LimiteSuperior"><br> 
+                <b><font size="3" >Limite Superior</font></b> <input type="text" name="LimiteSuperior" id = "ls2" ><br> 
                 <div id="row_2">
-                  <button type="button" id="button">Atualizar</button>
+                  <button type="button" id="button" onClick="init_actualizar(document.getElementById('li2').value,document.getElementById('ls2').value)">Atualizar</button>
                 </div>
               </div>
             </div>

@@ -14,13 +14,12 @@ if(!$connection->conn){
 	die("Connection failed: " . $connection->conn->error);
 }
 
-$id = $_GET["id"];
-
 
 //query to get data from the table
-$query = sprintf("SELECT valor, date(dataLeitura) as data, time(dataLeitura) as horas FROM leituras
-	WHERE sensores_id = '$id'
-	ORDER BY date(dataLeitura) DESC;");
+$query = sprintf("SELECT v.valor, s.nome, s.limiteInferior as li, s.limiteSuperior as ls,date(v.dataLeitura) as dia, time(v.dataLeitura) as horas
+from leituras as v inner join sensores as s on v.sensores_id = s.id
+where (v.valor < s.limiteInferior OR v.valor > s.limiteSuperior) AND v.dataLeitura > DATE_SUB(NOW(),INTERVAL 2 DAY)
+ORDER BY date(v.dataLeitura) DESC;");
 
 //execute query
 $result = $connection->conn->query($query);

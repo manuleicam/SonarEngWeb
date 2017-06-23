@@ -45,7 +45,10 @@ $FOOTER = $('footer');
 var url = "http://localhost:8888/sonar/scripts/";	
 var barGraph=null, barGraph1;
 var lineGraph;
-var id;
+var idCliente;
+var lastData;
+var porLer;
+var lidos;
 
 
 // Sidebar
@@ -639,7 +642,7 @@ if (typeof NProgress != 'undefined') {
 
 
 			  function init_valoresLidos(){
-			  	id =1;
+			  	var id = localStorage.getItem("idCliente");
 			  	if($('#tabela').length){
 			  		
 			  		$.ajax({
@@ -804,8 +807,8 @@ if (typeof NProgress != 'undefined') {
 							}
 
 			  				document.getElementById('nome').innerHTML ="Nome: " + nome;
-			  				document.getElementById('ls').innerHTML ="Limite Superior: " + li;
-			  				document.getElementById('li').innerHTML ="Limite Inferior: "+ ls;
+			  				document.getElementById('ls').innerHTML ="Limite Superior: " + ls;
+			  				document.getElementById('li').innerHTML ="Limite Inferior: "+ li;
 			  				
 				  		}
 				  	})
@@ -884,7 +887,7 @@ if (typeof NProgress != 'undefined') {
 				   	$.ajax({
 	                    type: 'GET',
 	            		url: url + "avgSensores.php",
-	                    data: {id : id}, 
+	                    data: {}, 
 	            		success: function(data) {
 	            			var valores = [];
    							var labels = [];
@@ -946,6 +949,7 @@ if (typeof NProgress != 'undefined') {
 			}
 
 			window.onload = function() {
+				var id = localStorage.getItem("idCliente");
 				var myLatLng = {lat: 41.56131, lng:  -8.393804};
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 15,
@@ -1007,28 +1011,149 @@ if (typeof NProgress != 'undefined') {
 				var flaglogin = 0;
 				$.ajax({
 
-					url: url +"logar.php",
-					method: "GET",
+					url: url +"logInUser.php",
+					method: "POST",
 					data: {nome : nome, password :password},
 					success: function(data) {
-						flaglogin = data;
+						flaglogin = parseInt(data);
 						console.log(flaglogin);
-						if (flaglogin == "1"){
+						if (flaglogin != "-1" && flaglogin != "0"){
 						window.alert("LogIn com sucesso");
+						localStorage.setItem("idCliente", flaglogin);
 						location.href = 'paginaMapa.html';
 						}
-						if (flagLogin == "0"){
-							window.alert("Password Errada");	
+						if (flaglogin == "0"){
+							window.alert("Password Errada");
 						}
-						if (flagLogin == "-1"){
+						if (flaglogin == "-1"){
 							window.alert("UserName não existe");
 						}
 					}
 				})
 			}
 
+			function init_actualizar(inf, sup){
+				var tipo;
+				var id = localStorage.getItem("idCliente");
+				if(inf == "" && sup == "") window.alert("Por Favor insira em pelo menos um dos campos");
+				else if (inf == "") {tipo = 1; inf = 0;}
+				else if (sup == "") {tipo = 2; sup = 0;}
+				else tipo = 3;
+				inf = parseInt(inf);
+				sup = parseInt(sup);
+				$.ajax({
+
+					url: url + "actLimites.php",
+					method: "POST",
+					data: {inf : inf, sup : sup, tipo : tipo, id : id},
+					success: function(data) {
+						if (tipo == 1)
+							window.alert("Valor máximo do sensor actualizado");
+						if (tipo == 2)
+							window.alert("Valor mínimo do sensor actualizado");
+						if (tipo == 3)
+							window.alert("Valores máximo e mínimo do sensor actualizado");
+						location.reload();
+					},
+					error : function(data){
+						console.log(data);
+					}
+				})
+			}
+
+			function add_Sensor(x, y, detalhes){
+				var emEdificio = 0;
+				var id = localStorage.getItem("idCliente");
+				if (x == "" || y == "") window.alert("Por Favor prencha os campos das posições X e Y");
+				x = parseFloat(x);
+				y = parseFloat(y);
+				if (detalhes != "") emEdificio = 1;
+				$.ajax({
+
+					url: url + "addLocalSensor.php",
+					method: "POST",
+					data: {x : x, y : y, emEdificio : emEdificio, id : id, detalhes : detalhes},
+					success: function(data) {
+						var mensagem = "Sensor instalado em " + x + "," + y;
+						window.alert(mensagem);
+						location.href = 'paginaMapa.html';
+					},
+					error : function(data){
+						console.log(data);
+					}
+				})
+			}
+
+			function table_alarmes(){
+				if ($('#tabelaAlertas').length ){
+				var nporLer = parseInt(localStorage.getItem("porLer"));
+				var jaLidos = parseInt(localStorage.getItem("lidos"));
+				if (isNaN(jaLidos)) jaLidos = 0;
+				var auxReg = 0;
+				var reg = 0;
+				$.ajax({
+
+					url: url + "alarmes.php",
+					method: "GET",
+					data: {},
+					success: function(data) {
+						
+						for(var i in data){
+							if(parseInt(data[i].valor) < parseInt(data[i].li)){
+								$('#tabelaAlertas tbody').append("<tr><td>" + data[i].nome + "</td><td>" + data[i].valor + "</td><td>" + "Limite Inferior: " + data[i].li +
+			  						"</td><td>" + data[i].dia + "</td><td>" + data[i].horas + "</td></tr>" );		
+							}
+							else{
+								$('#tabelaAlertas tbody').append("<tr><td>" + data[i].nome + "</td><td>" + data[i].valor + "</td><td>" + "Limite Superior: " + data[i].ls +
+			  						"</td><td>" + data[i].dia + "</td><td>" + data[i].horas + "</td></tr>" );
+							}
+							reg++;
+						}
+						console.log(jaLidos);
+						console.log(reg);
+						auxReg = reg - jaLidos;
+						reg =  auxReg + jaLidos;
+						localStorage.setItem("lidos", reg);
+					},
+					error : function(data){
+						console.log(data);
+					}
+				})
+			}	
+			}
+
+			function init_alarmes(){
+				var nporLer = parseInt(localStorage.getItem("porLer"));
+				var jaLidos = parseInt(localStorage.getItem("lidos"));
+				if (isNaN(jaLidos)) jaLidos = 0;
+				var reg = 0;
+				$.ajax({
+
+					url: url + "alarmes.php",
+					method: "GET",
+					data: {},
+					success: function(data) {
+						
+						for(var i in data){
+							reg++;
+						}
+						nporLer = reg - jaLidos;
+						if (nporLer != 0){
+							var mensagem = "Existem " + nporLer + " irregularidades que deviam ser vistas";
+							window.alert(mensagem);
+						}
+					},
+					error : function(data){
+						console.log(data);
+					}
+				})
+			}
 
 			  $(document).ready(function() {
+			  	setInterval(function() {
+  				init_alarmes();
+				}, 5000);
+				table_alarmes();
 			  	init_mapGraphs();
 			  	init_valoresLidos();
 			  	init_sidebar();

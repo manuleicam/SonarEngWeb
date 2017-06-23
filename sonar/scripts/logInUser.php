@@ -14,13 +14,12 @@ if(!$connection->conn){
 	die("Connection failed: " . $connection->conn->error);
 }
 
-$id = $_GET["id"];
+$nome = $_POST["nome"];
+$password = $_POST["password"];
 
 
 //query to get data from the table
-$query = sprintf("SELECT valor, date(dataLeitura) as data, time(dataLeitura) as horas FROM leituras
-	WHERE sensores_id = '$id'
-	ORDER BY date(dataLeitura) DESC;");
+$query = sprintf("SELECT count(*) as nuser, password, id from sensores WHERE nome = '$nome';");
 
 //execute query
 $result = $connection->conn->query($query);
@@ -34,10 +33,20 @@ foreach ($result as $row) {
 //free memory associated with result
 $result->close();
 
+if ($row['nuser'] == 1){
+	if($row['password'] == $password){
+		print json_encode($row['id']);
+	}
+	if($row['password'] != $password){
+		print json_encode(0);
+	}
+}
+else print json_encode(-1);
+
 //close connection
 $connection->conn->close();
 
 //now print the data
-print json_encode($data);
+
 ?>
 

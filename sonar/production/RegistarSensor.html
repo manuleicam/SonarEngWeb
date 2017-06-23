@@ -41,6 +41,7 @@
                   <li><a href="configurarPerfil.html">Configurações</a></li>
                   <li><a href="paginaMapa.html">Sensores do Sistema</a></li>
                   <li><a href="RegistarSensor.html"> Registar Sensor</a></li>
+                  <li><a href="alarmes.html"> Alarmes</a></li>
                     </ul>
               </div>
             </div>
@@ -56,11 +57,9 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
               <ul class="nav navbar-nav navbar-right">
-
-                <li role="presentation" class="dropdown">
-                    <a href="pag_inicial.html"><i class="fa fa-bell-o"></i>
-                  </a>
-                </li>
+              <div id = "logOut">
+                    <a href="pag_inicial2.html">LogOut</a>
+                    </div>
               </ul>
           </div>
         </div>
@@ -78,32 +77,32 @@
 
             <div class="clearfix"></div>
 
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
+            <div class="col-md-14 col-sm-14 col-xs-18">
                 <div class="x_content">
                   <span class="count" ></span>
-                   <b><font size="3" id = "posX">Insira posição X</font></b>
-                   <div><input type="text" name="posicaoX"> </div>
+                   <b><font size="3" id = "posX2">Insira posição X</font></b>
+                   <div><input type="text" name="posicaoX" id = "posX"><br>  </div>
                    
                 </div>
             </div>  
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
+            <div class="col-md-14 col-sm-14 col-xs-18">
                 <div class="x_content">
                   <span class="count" ></span>
-                   <b><font size="3" id = "posY">Insira Posição Y</font></b>
-                    <div><input type="text" name="posicaoX"> </div>
+                   <b><font size="3" id = "posY2">Insira Posição Y</font></b>
+                    <div><input type="text" name="posicaoY" id = "posY"> <br> </div>
                 </div>
             </div>
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
+            <div class="col-md-14 col-sm-14 col-xs-18">
                 <div class="x_content">
                   <span class="count" ></span>
-                   <b><font size="3" id = "detalhes">Descrição do Local</font> </b>
-                   <div id="ste_box">
-                        <input type="textarea" name="desc_Local" >
-                   </div>
+                   <b><font size="3" id = "detalhes22">Descrição do Local</font> </b>
+                    <div class="clearfix"></div>
+                        <input type="textarea" class="ste_box" name="desc_Local" id="detalhes" ><br> 
+
                 </div>
             </div>    
             <div id="ste_button">
-                <button type="button" id="button">Registar</button>
+                <button type="button" id="button" onClick="add_Sensor(document.getElementById('posX').value,document.getElementById('posY').value,document.getElementById('detalhes').value)">Registar</button>
             </div>
 
             <div class="clearfix"></div>

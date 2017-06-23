@@ -14,13 +14,10 @@ if(!$connection->conn){
 	die("Connection failed: " . $connection->conn->error);
 }
 
-$id = $_GET["id"];
-
 
 //query to get data from the table
-$query = sprintf("SELECT valor, date(dataLeitura) as data, time(dataLeitura) as horas FROM leituras
-	WHERE sensores_id = '$id'
-	ORDER BY date(dataLeitura) DESC;");
+$query = sprintf("SELECT MAX(valor) as maxs, MIN(valor) as mins , sensores_id as id from leituras
+			group by sensores_id;");
 
 //execute query
 $result = $connection->conn->query($query);

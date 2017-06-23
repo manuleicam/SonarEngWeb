@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Consultar Valores</title>
+    <title>Alarmes</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a class="site_title"><span>Perfil</span></a>
+              <a class="site_title"><span>Alarmes</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -39,6 +39,9 @@
                 <ul class="nav side-menu">
                   <li><a href="perfil.html">Perfil</a></li>
                   <li><a href="configurarPerfil.html">Configurações</a></li>
+                  <li><a href="paginaMapa.html">Sensores do Sistema</a></li>
+                  <li><a href="RegistarSensor.html"> Registar Sensor</a></li>
+                  <li><a href="alarmes.html"> Alarmes</a></li>
                     </ul>
                 </ul>
               </div>
@@ -55,11 +58,9 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
               <ul class="nav navbar-nav navbar-right">
-
-                <li role="presentation" class="dropdown">
-                    <a href="alertas.html"><i class="fa fa-bell-o"></i>
-                  </a>
-                </li>
+              <div id = "logOut">
+                    <a href="pag_inicial2.html">LogOut</a>
+                    </div>
               </ul>
           </div>
         </div>
@@ -71,78 +72,24 @@
 
             <div class="page-title">
               <div class="title_left">
-                <h3>Consultar Valores</h3>
+                <h3>Situações irregulares</h3>
               </div>
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="6" id = "nome">Nome</font></b>
-                </div>
-            </div>
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="6" id = "li">Limite Inferior</font></b>
-                </div>
-            </div>
-            <div class="col-md-14 col-sm-14 col-xs-18 tile_stats_count ">
-                <div class="x_content">
-                  <span class="count" ></span>
-                   <b><font size="6" id = "ls">Limite Superior</font></b>
-                </div>
-            </div>
-            
-            <div class = "row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Leituras irregulares</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">                   
-                    <canvas id="valoresLimite"></canvas>
-                    <div id="js-legend1" class="chart-legend" ></div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-md-6 col-sm-6 col-xs-6">
-
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Leituras até ao momento</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">                 
-                    <canvas id="valoresLinhas"></canvas>
-                    <div id="js-legend3" class="chart-legend"></div>
-                  </div>
-                </div>
-              </div>
-              </div>
-
 
               <div class="clearfix"></div>
 			<div class="panel panel-primary ">
            
-            <table id = "tabela" class="table">
+            <table id = "tabelaAlertas" class="table">
                 <thead>
+                        <th>Nome do sensor</th>
                         <th>Valor da leitura</th>
+                        <th>Limite Violado</th>
                         <th>Data da leitura</th>
                         <th>Hora da leitura</th>
+
                 </thead>
                 <tbody>
                 </tbody>
